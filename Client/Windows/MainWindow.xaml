@@ -1,0 +1,209 @@
+﻿<my:StandardWindow x:Class="CoinPoker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:my="clr-namespace:CoinPoker.Controls"
+        xmlns:views="clr-namespace:CoinPoker.Views"
+        ResizeMode="CanResizeWithGrip"
+        ShowInTaskbar="True"
+        Title="UnityPoker"
+        Height="600"
+        Width="960"
+        MinHeight="500"
+        MinWidth="800"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStyle="None"
+        Icon="/Unity.Assets;component/Assets/unitypokericon.ico">
+    
+    <!-- Ustawienia okna glownego -->
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="45"
+                            GlassFrameThickness="-1"
+                            ResizeBorderThickness="5"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <Grid>
+        <Border Background="#111" BorderBrush="#111" BorderThickness="1" CornerRadius="3" Margin="5" Name="MainWindowMainBorder">
+            <Border.Effect>
+                <DropShadowEffect Color="#000"
+                              BlurRadius="5"
+                              ShadowDepth="0"/>
+            </Border.Effect>
+            <Grid x:Name="LayoutRoot">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- App Content -->
+                <Grid Grid.Row="1" Name="FrameGridContent" ClipToBounds="True">
+                    
+                    <Grid>
+                        <views:Lobby Margin="0,0,0,0" x:Name="MainLobby"/>
+                    </Grid>
+                    
+                    <my:SmallLoader x:Name="SmallLoader" Visibility="Hidden" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                </Grid>
+
+
+                <Border Grid.Row="1" Name="ModalBackground" Visibility="Hidden">
+                    <Border.Background>
+                        <SolidColorBrush Color="#000" Opacity="0.5"/>
+                    </Border.Background>
+                </Border>
+                <!-- Ustawienia naglowka -->
+                <Border BorderBrush="#222" Background="#111" BorderThickness="0,0,0,0">
+                    <Grid Grid.Row="0">
+                    
+                    <!-- Elementy headera -->
+                    <Grid Grid.Column="0" Grid.Row="0" Margin="2">
+                        <!-- Header -->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="70" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Logo -->
+                        <Image Margin="5,0,0,0" Grid.Column="0" Grid.Row="0" Source="/Unity.Assets;component/Assets/UI/unitypokerlogo.png" RenderOptions.BitmapScalingMode="Fant"/>
+
+                        <!-- separator -->
+                        <Grid HorizontalAlignment="Left" Grid.Column="1" Margin="10,0,0,0">
+                        <Rectangle x:Name="HighlightLine" Width="1">
+                            <Rectangle.Fill>
+                                <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                    <GradientStop Color="#111" Offset="0" />
+                                    <GradientStop Color="#222" Offset="0.3" />
+                                    <GradientStop Color="#222" Offset="0.7" />
+                                    <GradientStop Color="#111" Offset="1" />
+                                </LinearGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        </Grid>
+                        
+                        <!-- Opcje -->
+                        <Border Grid.Column="1" BorderBrush="{x:Null}" Height="40" Margin="20,0,0,0" HorizontalAlignment="Left">
+                            <TextBlock Name="configurationButton" Style="{StaticResource ActionWindowItem}" FontSize="15" Text="&#xf013;" VerticalAlignment="Center" PreviewMouseDown="OnConfigurationClick" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                        </Border>
+                        <!--
+                        <Popup PopupAnimation="Fade" Focusable="False" StaysOpen="False" PlacementRectangle="-53,15,0,0" Width="200" AllowsTransparency="True" Placement="Bottom" PlacementTarget="{Binding ElementName=configurationButton}"  Name="configurationPopup" >
+                            <my:MenuPopup ArrowAlignment="Left" ArrowMargin="50 0 50 0">
+                                <my:MenuPopup.AdditionalContent>
+                                    <StackPanel>
+                                        <MenuItem Header="Ustawienia">
+                                            <MenuItem.Icon>
+                                                <TextBlock Style="{StaticResource MenuIcon}" Text="&#xf013;" HorizontalAlignment="Right"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Wygląd">
+                                            <MenuItem.Icon>
+                                                <TextBlock Style="{StaticResource MenuIcon}" Text="&#xf1fc;" HorizontalAlignment="Right"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Bezpieczeństwo">
+                                            <MenuItem.Icon>
+                                                <TextBlock Style="{StaticResource MenuIcon}" Text="&#xf13e;" HorizontalAlignment="Right"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                        <MenuItem Header="Dźwięki">
+                                            <MenuItem.Icon>
+                                                <TextBlock Style="{StaticResource MenuIcon}" Text="&#xf084;" HorizontalAlignment="Right"/>
+                                            </MenuItem.Icon>
+                                        </MenuItem>
+                                    </StackPanel>
+                                </my:MenuPopup.AdditionalContent>
+                            </my:MenuPopup>
+                        </Popup>
+                        -->
+
+                        <!-- separator -->
+                        <Grid HorizontalAlignment="Left" Grid.Column="1" Margin="42,0,0,0">
+                            <Rectangle x:Name="HighlightLine2" Width="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                        <GradientStop Color="#111" Offset="0" />
+                                        <GradientStop Color="#222" Offset="0.3" />
+                                        <GradientStop Color="#222" Offset="0.7" />
+                                        <GradientStop Color="#111" Offset="1" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        
+                        <!-- Support -->
+                        <Border Grid.Column="1" BorderBrush="{x:Null}" Height="40" Margin="55,0,0,0" HorizontalAlignment="Left">
+                            <StackPanel Margin="0,1,0,0" Orientation="Horizontal"  VerticalAlignment="Center"  Style="{StaticResource ActionWindowItemStack}"  PreviewMouseDown="OnSupportClick" shell:WindowChrome.IsHitTestVisibleInChrome="True">
+
+                                <TextBlock FontSize="19" Foreground="#fff" Margin="0,-2,0,0">
+                                &#x2660;
+                                </TextBlock>
+                                <TextBlock FontWeight="SemiBold" FontSize="11" Foreground="#d7000f" VerticalAlignment="Center" Margin="2,0,0,0">
+                                UNITY
+                                </TextBlock>
+                                <TextBlock FontWeight="SemiBold" FontSize="11" Foreground="#fff" VerticalAlignment="Center" Margin="0,0,0,0">
+                                POKER
+                                </TextBlock>
+                                
+                                <TextBlock FontSize="7" Height="10" Foreground="#aaa" VerticalAlignment="Center" Margin="0,5,0,0">
+                                .EU
+                                </TextBlock>
+                            </StackPanel>
+                        </Border>
+
+
+                        <!-- zmiana trybu gry -->
+                        <Grid Grid.Column="1" Margin="70,0,0,0">
+                            <Border Background="#111" CornerRadius="4" Visibility="Hidden">
+                                <StackPanel Orientation="Vertical" Margin="6">
+                                    <RadioButton Content="Wirtualne pieniądze" FontSize="10" IsChecked="True"  shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                    <RadioButton Content="Prawdziwe pieniądze" FontSize="10"  shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+
+
+
+                        <!-- User Panel -->
+                        <my:UserPanel Grid.Column="2" Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="UserPanelControl"  shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+
+                        <!-- Action Panel Close/Minimize/Maximize -->
+                        <StackPanel Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,-3,10,0">
+                            <Border BorderBrush="{x:Null}" Height="40">
+                                <TextBlock Style="{StaticResource ActionWindowItem}" Text="&#xf078;" VerticalAlignment="Center" PreviewMouseDown="OnMinimizeClick" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                            </Border>
+                            <Border BorderBrush="{x:Null}" Height="40" Margin="5,0,0,0">
+                                <TextBlock Style="{StaticResource ActionWindowItem}" Text="&#xf077;" VerticalAlignment="Center" PreviewMouseDown="OnMaximizeClick" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                            </Border>
+                            <Border BorderBrush="{x:Null}" Height="40" Margin="5,0,0,0">
+                                <TextBlock Style="{StaticResource ActionWindowItem}" Text="&#xf00d;" VerticalAlignment="Center" PreviewMouseDown="OnCloseClick" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+
+
+                    </Grid>
+                </Border>
+
+                
+            </Grid>
+
+
+        </Border>
+
+        <Grid Grid.Row="1" Name="NoConnection">
+        </Grid>
+        
+        <!-- beta ribbon -->
+        <Image Source="/Unity.Assets;component/Assets/UI/beta_ribbon.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="1,2,0,0"/>
+    </Grid>
+</my:StandardWindow>

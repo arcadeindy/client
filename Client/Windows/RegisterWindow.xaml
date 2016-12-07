@@ -1,0 +1,195 @@
+﻿<my:ModalWindow x:Class="CoinPoker.RegisterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:CoinPoker.Controls"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Icon="/Unity.Assets;component/Assets/unitypokericon.ico"
+        WindowStartupLocation="CenterOwner"
+        Title="Kasjer"
+        Height="430"
+        Width="680"
+        MinHeight="430"
+        MinWidth="680"
+        >
+
+
+    <!-- Ustawienia okna glownego -->
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="45"
+                            GlassFrameThickness="-1"
+                            ResizeBorderThickness="5"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <Grid>
+        <Border  Background="#111" BorderThickness="2" CornerRadius="5" Margin="5">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="#fff" Opacity="0.15"/>
+            </Border.BorderBrush>
+            <Grid x:Name="LayoutRoot">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Border>
+                            <Grid VerticalAlignment="Center">
+                                <StackPanel Margin="5,0,0,0" Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource FontAwesome}" FontSize="14" Text="&#xf138;" Foreground="#ccc" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <TextBlock Margin="5,0,0,0" Foreground="#ccc" VerticalAlignment="Center" Style="{StaticResource Heading5}" Text="Rejestracja">
+                                        <TextBlock.Effect>
+                                            <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                        </TextBlock.Effect>
+                                    </TextBlock>
+                                </StackPanel>
+
+                                <!-- Action Panel Close/Minimize/Maximize -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                                    <Border BorderBrush="{x:Null}" Height="30" Margin="5,0,0,0">
+                                        <TextBlock Name="WindowCloseButton" Style="{StaticResource ActionWindowItem}" Text="&#xf00d;" VerticalAlignment="Center" PreviewMouseDown="OnCloseClick" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <!-- -->
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- top header -->
+                        <Border Margin="1" Height="70" CornerRadius="0,0,3,3" VerticalAlignment="Bottom" Background="{StaticResource ControlBackgroundNormal}">
+                            <Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Height="30" Margin="0,0,0,0">
+
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <CheckBox Grid.Column="1" Grid.Row="3" Style="{DynamicResource SliderCheckBox}" FontSize="11" Content="Akceptuję regulamin UnityPoker" Margin="5,0,0,0" VerticalAlignment="Center" IsChecked="True"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+
+                                    <Button Name="Register" Margin="5,0,5,0" Style="{StaticResource GreenButton}" Content="Rejestracja" Click="Register_Click"/>
+                                    <Button Name="Cancel" Margin="5,0,5,0" Content="Anuluj" Click="Cancel_Click"/>
+
+                                </StackPanel>
+
+
+
+                                <Rectangle HorizontalAlignment="Center" VerticalAlignment="Top" Height="2" Width="400" Margin="0,0,0,0">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                            <GradientStop Color="#0000" Offset="0" />
+                                            <GradientStop Color="#fff0" Offset="0.3" />
+                                            <GradientStop Color="#fff0" Offset="0.7" />
+                                            <GradientStop Color="#0000" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+
+                            </Grid>
+                        </Border>
+
+                        <!-- okno glowne -->
+                        <Border Margin="1,1,1,70" Background="#fff" CornerRadius="3,3,0,0">
+                            <!-- body -->
+                            <Border BorderThickness="1" BorderBrush="#bbb" CornerRadius="3" Margin="3">
+                                <Border Background="#eee" CornerRadius="3">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="6*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- lista elementow -->
+                                        <!-- info co umozliwi rejestracj -->
+                                        <Border Grid.Column="0">
+                                            <Grid Margin="5">
+                                                <StackPanel>
+                                                    <TextBlock Text="Co umożliwia Ci rejestracja?" Foreground="#aaa"/>
+
+                                                    <Rectangle Height="1" Fill="#ccc" Margin="0,5,0,0"/>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Foreground="#333" VerticalAlignment="Center" Width="210" TextWrapping="Wrap">
+                                                            <LineBreak/>Rejestracja umożliwi Ci zalogowanie się na Twoje konto UnityPoker<LineBreak/>
+                                                            <LineBreak/>
+                                                            Dzięki temu zyskasz:<LineBreak/>
+                                                            • Możliwość korzystania z portfela<LineBreak/>
+                                                            • Gry przy stołach<LineBreak/>
+                                                            • Uczesnictwie w turniejach<LineBreak/>
+                                                            • Ustawienie avatara<LineBreak/>
+                                                            • Korzystanie z listy znajomych<LineBreak/><LineBreak/>
+                                                            oraz wiele więcej...<LineBreak/>
+                                                        </TextBlock>
+                                                        
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                
+                                            </Grid>
+                                        </Border>
+
+                                        <Grid Grid.Column="1" Margin="5">
+                                            <TextBlock Margin="5" Text="Rejestracja użytkownika" FontSize="14" FontWeight="SemiBold" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                                            <ScrollViewer Margin="0,30,0,0" Style="{DynamicResource AppleStyleScrollBarStyle}" VerticalScrollBarVisibility="Visible">
+
+                                                <Grid Margin="5,0,0,0">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="40"/>
+                                                        <RowDefinition Height="40"/>
+                                                        <RowDefinition Height="40"/>
+                                                        <RowDefinition Height="40"/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="150"/>
+                                                        <ColumnDefinition Width="*"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Nazwa użytkownika" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                    <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=User.Username, Mode=TwoWay, UpdateSourceTrigger=LostFocus ,ValidatesOnExceptions=True}" Validation.ErrorTemplate="{StaticResource ErrorTemplateSilverlightStyle}" Name="UsernameTxtBox" Margin="5" VerticalAlignment="Center"/>
+
+                                                    <TextBlock Grid.Column="0" Grid.Row="1" Text="Adres E-mail" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                    <TextBox Grid.Column="1" Grid.Row="1" Text="" Name="EmailTxtBox" Margin="5" VerticalAlignment="Center"/>
+
+                                                    <TextBlock Grid.Column="0" Grid.Row="2"  Text="Hasło" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                    <PasswordBox Grid.Column="1" Grid.Row="2" Password="" Name="PasswordTxtBox" Margin="5" VerticalAlignment="Center"/>
+
+                                                    <TextBlock Grid.Column="0" Grid.Row="3" Text="Powtórz hasło" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                                    <PasswordBox Grid.Column="1" Grid.Row="3" Password="" Name="RepeatPasswordTxtBox" Margin="5" VerticalAlignment="Center"/>
+
+
+                                                </Grid>
+
+                                            </ScrollViewer>
+
+                                        </Grid>
+                                        
+                                    </Grid>
+                                </Border>
+                            </Border>
+                        </Border>
+
+                    </Grid>
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
+
+</my:ModalWindow>

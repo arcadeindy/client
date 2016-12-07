@@ -1,0 +1,15 @@
+﻿<Page x:Class="CoinPoker.Views.Game.BackOfferActionView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      d:DesignHeight="150" d:DesignWidth="450"
+	Title="SitAvailable">
+
+    <Grid Width="450">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,0">
+            <Button Name="Sit" Content="[VALUE]" Style="{DynamicResource GreenButton}" FontSize="16" Click="Sit_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

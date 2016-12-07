@@ -1,0 +1,422 @@
+﻿<UserControl x:Class="CoinPoker.Views.Lobby"
+          xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+          xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+          xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+          xmlns:my="clr-namespace:CoinPoker.Controls"
+          mc:Ignorable="d" 
+          d:DesignHeight="500" d:DesignWidth="840">
+
+    <Grid>
+        <!-- Tło -->
+        <Grid Margin="-10">
+            <Grid.Background>
+
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStop Color="#111" Offset="0" />
+                        <GradientStop Color="#222" Offset="1" />
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+
+            </Grid.Background>
+        </Grid>
+
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="/Unity.Assets;component/Assets/UI/dreamstime_xxl_40363467.jpg" Stretch="UniformToFill" RenderOptions.BitmapScalingMode="LowQuality"/>
+            </Grid.Background>
+
+            <Grid>
+                <Grid.Background>
+                    <SolidColorBrush Color="#000" Opacity="0.2"/>
+                </Grid.Background>
+            </Grid>
+            
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Unity.Assets;component/Assets/UI/pattern-bg.png" Opacity="0.3" Stretch="None" TileMode="Tile" Viewport="0,0,2,2" ViewportUnits="Absolute"/>
+                </Grid.Background>
+            </Grid>
+
+        </Grid>
+
+        <!-- Glowna czesc aplikacji -->
+        <Grid Margin="2,2,2,2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="230" MinWidth="180" MaxWidth="230"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- tabsy -->
+            <Grid>
+
+                <Grid Grid.Column="0" Grid.Row="0">
+
+                    <!-- Panele informacyjne -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <!-- Panele -->
+
+                        <!-- Czas -->
+                        <StackPanel Orientation="Horizontal">
+                            <Border BorderBrush="{x:Null}" Height="40">
+                                <TextBlock TextWrapping="Wrap" Text="00:00" Width="60" Style="{DynamicResource Heading3}" VerticalAlignment="Center"  TextAlignment="Center" Name="ServerTimeLbl">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Border>
+                            <Border BorderBrush="{x:Null}" Height="40">
+                                <TextBlock FontSize="11" Text="Czas serwera" Style="{DynamicResource TextBlockLight}" Margin="5,0,0,0" TextWrapping="Wrap" Width="50" TextAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Border>
+                        </StackPanel>
+
+                        <!-- Osob online -->
+                        <StackPanel Orientation="Horizontal" Margin="50,0,0,0">
+                            <Border BorderBrush="{x:Null}" Height="40">
+                                <TextBlock TextWrapping="Wrap" Text="0" Name="StatOnlineCount" Style="{DynamicResource Heading3}" VerticalAlignment="Center" TextAlignment="Center">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Border>
+                            <Border BorderBrush="{x:Null}" Height="40">
+                                <TextBlock FontSize="11" Text="Osób online" Style="{DynamicResource TextBlockLight}" Margin="5,0,0,0" TextWrapping="Wrap" Width="50" TextAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Border>
+                        </StackPanel>
+
+
+                        <!-- Stolow do gry -->
+                        <StackPanel Orientation="Horizontal" Margin="50,0,0,0">
+                            <Border BorderBrush="{x:Null}" Height="40">
+                                <TextBlock TextWrapping="Wrap" Text="0" Name="StatTablesCount" Style="{DynamicResource Heading3}" VerticalAlignment="Center"  TextAlignment="Center">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Border>
+                            <Border BorderBrush="{x:Null}" Height="40">
+                                <TextBlock FontSize="11" Text="Dostępnych gier" Style="{DynamicResource TextBlockLight}" Margin="5,0,0,0" TextWrapping="Wrap" Width="65" TextAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+                            </Border>
+                        </StackPanel>
+
+
+                    </StackPanel>
+
+                </Grid>
+
+
+                <TabControl Name="LobbyTab" Margin="0,36,0,0" Grid.Column="0" Grid.Row="0" Style="{StaticResource TabControlGrey}" SelectionChanged="LobbyTab_SelectionChanged">
+                    <TabItem Name="LobbyTabNormalList" Header="Gry stolikowe" Style="{StaticResource TabItemGrey}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- filtry dla danego tab -->
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="176*"/>
+                                    <ColumnDefinition Width="127*"/>
+                                </Grid.ColumnDefinitions>
+                                <Border CornerRadius="3" Background="#FFC6C6C6" Grid.ColumnSpan="2">
+                                    <StackPanel Orientation="Vertical" Margin="0,0,0,2">
+
+
+                                        <StackPanel Orientation="Horizontal" Margin="4,6,4,4">
+                                            <StackPanel>
+                                                <TextBlock Margin="0,0,0,2" Text="Gra" FontSize="10" Foreground="#333"/>
+                                                <ComboBox SelectionChanged="NormalFilter_SelectionChanged" Name="NormalFilter_Type" Width="145" HorizontalAlignment="Left">
+                                                    <ComboBoxItem IsSelected="True">Wszystkie</ComboBoxItem>
+                                                    <ComboBoxItem>Holdem</ComboBoxItem>
+                                                    <ComboBoxItem>Omaha</ComboBoxItem>
+                                                </ComboBox>
+                                            </StackPanel>
+
+                                            <StackPanel>
+                                                <TextBlock Margin="5,0,0,2" Text="Stawki" FontSize="10" Foreground="#333"/>
+                                                <ComboBox SelectionChanged="NormalFilter_SelectionChanged" Name="NormalFilter_Stakes" Margin="5,0,0,0" Width="135" HorizontalAlignment="Left">
+                                                    <ComboBoxItem IsSelected="True">Wszystkie stawki</ComboBoxItem>
+                                                    <ComboBoxItem>Mikro (2 tys i mniej)</ComboBoxItem>
+                                                    <ComboBoxItem>Niskie</ComboBoxItem>
+                                                    <ComboBoxItem>Średnie</ComboBoxItem>
+                                                    <ComboBoxItem>Wysokie</ComboBoxItem>
+                                                </ComboBox>
+                                            </StackPanel>
+
+                                            <StackPanel>
+                                                <TextBlock Margin="5,0,0,2" Text="Limity" FontSize="10" Foreground="#333"/>
+                                                <ComboBox SelectionChanged="NormalFilter_SelectionChanged" Name="NormalFilter_Limits" Margin="5,0,0,0" Width="135" HorizontalAlignment="Left">
+                                                    <ComboBoxItem IsSelected="True">Wszystkie</ComboBoxItem>
+                                                    <ComboBoxItem>Fixed</ComboBoxItem>
+                                                    <ComboBoxItem>Pot Limit</ComboBoxItem>
+                                                    <ComboBoxItem>No Limit</ComboBoxItem>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            
+                                            <StackPanel>
+                                                <TextBlock Margin="5,0,0,2" Text="Maksymalna liczba graczy" FontSize="10" Foreground="#333"/>
+                                                <ComboBox SelectionChanged="NormalFilter_SelectionChanged" Name="NormalFilter_MaxPlrs" Margin="5,0,0,0" Width="100" HorizontalAlignment="Left">
+                                                    <ComboBoxItem IsSelected="True">Wszystkie</ComboBoxItem>
+                                                    <ComboBoxItem>7-10 (Full Ring)</ComboBoxItem>
+                                                    <ComboBoxItem>6-maks</ComboBoxItem>
+                                                    <ComboBoxItem>2 (Heads-up)</ComboBoxItem>
+                                                </ComboBox>
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                        <Grid Margin="0,-4,0,0">
+                                            <StackPanel Orientation="Horizontal" Margin="4">
+                                                <CheckBox Unchecked="NormalFilter_Checked" Checked="NormalFilter_Checked" Name="NormalFilter_HideFull" Margin="0,3,0,0" Style="{DynamicResource SliderCheckBox}" Foreground="#333" FontSize="11" Content="Ukryj pełne stoły" VerticalAlignment="Center"/>
+                                                <CheckBox Unchecked="NormalFilter_Checked" Checked="NormalFilter_Checked" Name="NormalFilter_HideEmpty" Margin="5,3,0,0" Style="{DynamicResource SliderCheckBox}" Foreground="#333" FontSize="11" Content="Ukryj puste" VerticalAlignment="Center"/>
+
+                                                <TextBox KeyUp="NormalFilter_KeyDown" Name="NormalFilter_SearchQuery" Margin="10,5,0,0" Text=""  Style="{DynamicResource DarkTextBox}" MinWidth="130"/>
+                                            </StackPanel>
+
+                                            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
+
+                                                <Button Padding="5" Margin="5,0,0,0" Name="RemoveFilters" Click="RemoveFilters_Click">
+                                                    <Button.Content>
+                                                        <Grid>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Margin="0,1,4,0" Text="&#xf00d;" Style="{StaticResource FontAwesome}" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="Usuń filtry" VerticalAlignment="Center"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Button.Content>
+                                                </Button>
+
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+
+                                </Border>
+                            </Grid>
+                            <!-- koniec filtrow -->
+
+
+                            <!-- lista elementow -->
+                            <ListView  SelectionMode="Single" Grid.Row="1" Margin="0,2,0,0" Name="NormalGameModeList" IsSynchronizedWithCurrentItem="True" MouseDoubleClick="NormalDoubleClick" ItemContainerStyle="{StaticResource UnityItemTable}" Style="{StaticResource UnityMainLobby}" AlternationCount="2" SelectionChanged="NormalGameModeList_SelectionChanged">
+                                <ListView.View>
+                                    <GridView ColumnHeaderContainerStyle="{StaticResource MainLobbyColumnHeader}" ColumnHeaderTemplate="{StaticResource MainLobbyHeaderTemplate}">
+                                        <GridViewColumn Width="Auto" CellTemplate="{StaticResource NormalGameNameTemplate}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.Name" Click="GridViewColumnSort">Stół</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.Stakes}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.Stakes" Click="GridViewColumnSort">Stawki</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Seats}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.Seats" Click="GridViewColumnSort">Max</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Limit}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.Limit" Click="GridViewColumnSort">Limity</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Game}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.Game" Click="GridViewColumnSort">Typ</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.Players}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.Players" Click="GridViewColumnSort">Graczy</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.Watching}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.Watching" Click="GridViewColumnSort">Obserwuje</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.AvgPotCurrency}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="Table.AvgPot" Click="GridViewColumnSort">Sr. pula</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Name="LobbyTabTournamentList" Header="Turnieje" Style="{StaticResource TabItemGrey}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+
+                            <!-- filtry dla danego tab -->
+                            <Grid Grid.Row="0">
+                                <Border CornerRadius="3" Background="#FFC6C6C6">
+                                    <StackPanel Orientation="Vertical" Margin="4,6,4,4">
+                                        <Grid Margin="0,0,0,0">
+                                            <StackPanel Orientation="Horizontal" Margin="3">
+                                                <CheckBox Unchecked="TournamentFilter_Checked" Checked="TournamentFilter_Checked" Name="TournamentFilter_ShowOnlyIncomming" Style="{DynamicResource SliderCheckBox}" Foreground="#333" FontSize="11" Content="Pokazuj tylko nadchodzące" Margin="5,0,0,0" VerticalAlignment="Center"/>
+
+                                                <TextBox KeyUp="TournamentFilter_KeyDown" Name="TournamentFilter_SearchQuery" Margin="5,0,0,0" Text="" Style="{DynamicResource DarkTextBox}" MinWidth="130"/>
+                                            </StackPanel>
+
+
+                                            <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0">
+
+                                                <Button Padding="5" Margin="5,0,0,0" Name="RemoveFiltersTournament" Click="RemoveFiltersTournament_Click">
+                                                    <Button.Content>
+                                                        <Grid>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Margin="0,1,4,0" Text="&#xf00d;" Style="{StaticResource FontAwesome}" VerticalAlignment="Center"/>
+                                                                <TextBlock Text="Usuń filtry" VerticalAlignment="Center"/>
+                                                            </StackPanel>
+                                                        </Grid>
+                                                    </Button.Content>
+                                                </Button>
+
+                                            </StackPanel>
+                                            
+                                        </Grid>
+                                    </StackPanel>
+
+                                </Border>
+                            </Grid>
+                            <!-- koniec filtrow -->
+
+
+                            <!-- lista elementow -->
+
+                            <!-- lista elementow -->
+                            <ListView SelectionMode="Single" Grid.Row="1" Margin="0,2,0,0" Name="TournamentGameModeList" IsSynchronizedWithCurrentItem="True" MouseDoubleClick="TournamentDoubleClick" ItemContainerStyle="{StaticResource UnityItemTable}" Style="{StaticResource UnityMainLobby}" AlternationCount="2" SelectionChanged="TournamentGameModeList_SelectionChanged">
+                                <ListView.View>
+                                    <GridView ColumnHeaderContainerStyle="{StaticResource MainLobbyColumnHeader}" ColumnHeaderTemplate="{StaticResource MainLobbyHeaderTemplate}">
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding StartString}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="StartString" Click="GridViewColumnSort">Start</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="230" DisplayMemberBinding="{Binding TournamentModel.Name}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="TournamentModel.Name" Click="GridViewColumnSort">Nazwa</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding TournamentModel.State}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="TournamentModel.State" Click="GridViewColumnSort">Stan</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding TournamentModel.EntryPaymentCurrency}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="TournamentModel.EntryPaymentCurrency" Click="GridViewColumnSort">Wejście</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding TournamentModel.WinPotCurrency}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="TournamentModel.WinPotCurrency" Click="GridViewColumnSort">Pula nagród</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                        <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding TournamentModel.Registered}">
+                                            <GridViewColumn.Header>
+                                                <GridViewColumnHeader Tag="TournamentModel.Registered" Click="GridViewColumnSort">Zarejestrowanych</GridViewColumnHeader>
+                                            </GridViewColumn.Header>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+
+
+
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+
+            </Grid>
+            <!-- //tabsy -->
+
+            <GridSplitter Grid.Column="0" ResizeDirection="Columns" Width="2" Height="Auto" HorizontalAlignment="Right" Margin="0" Name="GridSplitter1" />
+
+            <!-- kontrolka info table -->
+            <Grid Grid.Column="1" Grid.Row="0">
+
+                <Border Name="AdsMiniRight" MouseLeftButtonDown="AdsMiniRight_MouseLeftButtonDown" Margin="2,0,0,0" CornerRadius="3" VerticalAlignment="Top" Height="67" Cursor="Hand" Grid.RowSpan="2">
+                    <Border.Background>
+                        <!--<ImageBrush ImageSource="http://www.examiner.com/images/blog/EXID26362/images/cada(1).jpg" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill" Opacity="1"/>-->
+                        <SolidColorBrush Color="#111" Opacity="0.8"/>
+                    </Border.Background>
+                    <Grid Margin="5">
+                        <!-- loader-->
+
+                        <Grid Name="AdsLoader">
+                            <my:SprocketControl 
+                                      x:Name="sprocketControl1"
+                                      Margin="10,0,0,0"
+                                      VerticalAlignment="Center"
+                                      HorizontalAlignment="Center"
+                                      TickColor="#ccc"
+                                      Width="14"
+                                      Height="14"
+                                      TickWidth="2"
+                                      TickCount="12"
+                                      StartAngle="-90"
+                                      IsIndeterminate="True"
+                                      Interval="90" />
+                        </Grid>
+                        
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Left" Background="#222" CornerRadius="2">
+                            <TextBlock  Margin="2" Text="REKLAMA" Foreground="#fff" FontSize="7"/>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <Grid Margin="2,69,0,0">
+                    <my:TableSideInformation x:Name="TableSideInformationControl"/>
+                </Grid>
+
+            </Grid>
+            
+            
+        </Grid>
+        <!-- //Glowna czesc -->
+
+        <!-- pasek dla wiadomosci/znajomi -->
+
+        <Grid Margin="5,5,5,0" VerticalAlignment="Bottom" Height="20" Visibility="Hidden">
+            <Border Background="#111" CornerRadius="3,3,0,0" BorderBrush="#222" BorderThickness="1,1,1,0">
+                <Grid>
+                    <!-- znajomi/przycisk -->
+                    <Border HorizontalAlignment="Right" VerticalAlignment="Center">
+
+                        <ToggleButton Padding="4" Margin="5,0,0,0" x:Name="ShowFriends">
+                            <TextBlock Text="&#xf0c0;  0" FontSize="11"  Style="{StaticResource FontAwesome}" Foreground="#222" Margin="15,0,15,0" TextWrapping="Wrap" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </ToggleButton>
+
+                    </Border>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- /// -->
+    </Grid>
+</UserControl>

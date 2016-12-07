@@ -1,0 +1,157 @@
+﻿<Window x:Class="CoinPoker.Games.PokerGameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="580"
+        Width="850"
+        MinHeight="480"
+        MinWidth="620"
+        Icon="/Unity.Assets;component/Assets/unitypokericon.ico"
+        xmlns:my="clr-namespace:CoinPoker.Controls"
+        xmlns:game="clr-namespace:CoinPoker.GameControls" 
+        >
+    <Window.Resources>
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid Name="GameWindowRootNode">
+        <!-- Ustawienia tła -->
+        <Grid>
+            <Grid.Background>
+                <ImageBrush x:Name="Background" ImageSource="/Unity.Assets;component/Assets/Game/Backgrounds/1.png" AlignmentX="Center" AlignmentY="Center" Stretch="UniformToFill"/>
+            </Grid.Background>
+            <!-- Elementy gry -->
+        </Grid>
+
+        <!-- Inforamcje o stole etc. -->
+        <Grid>
+            <Canvas Name="InfoTableCanvas">
+                    <Path xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Opacity="0.8" Width="248.5" Height="40.5" Name="path4143" StrokeThickness="0" Stroke="#000" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat" Stretch="Fill">
+                    <Path.Fill>
+                        <SolidColorBrush Color="#fff"/>
+                    </Path.Fill>
+                    <Path.Data>
+                        <PathGeometry Figures="m 0.56722328 0.51514113 0 39.39647987 174.20762672 4.8e-4 c 16.64461 5e-5 39.12685 -39.29909987 75.19484 -39.28254987 z" FillRule="evenodd"/>
+                    </Path.Data>
+                </Path>
+            </Canvas>
+            <TextBlock Text="Rozdanie: {{VALUE}}" FontSize="10" Name="HandIDLabel" Foreground="#222" HorizontalAlignment="Left" Margin="5,8,0,0"/>
+            <TextBlock Text="Średnia pula: {{VALUE}}" FontSize="10" Name="AvgPotLabel" Foreground="#222" HorizontalAlignment="Left" Margin="5,20,0,0"/>
+        </Grid>
+            
+        <!-- Prawa  -->
+        <Grid Margin="0,0,0,0">
+                <Viewbox  Stretch="Uniform" StretchDirection="Both" VerticalAlignment="Bottom" HorizontalAlignment="Right" MaxHeight="150" MinHeight="120" MaxWidth="40" MinWidth="25">
+                    <Grid>
+                        <Canvas Margin="0,0,0,0" Name="layer1">
+                            <Path Fill="{StaticResource ControlBackgroundNormal}" Margin="0,0,0,0" Opacity="0.8" Width="40" Height="230.5" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Name="path3348" StrokeThickness="1" StrokeLineJoin="Miter" StrokeStartLineCap="Flat" StrokeEndLineCap="Flat">
+                                <Path.Data>
+                                    <PathGeometry Figures="M 39.57119 0.40522231 C 39.58774 36.473211 0.28783003 58.955922 0.28799003 75.600532 l 0 48.847658 0.03711 0 c -8e-5 3.52638 0 25.45312 0 25.45312 -5e-5 16.64461 39.29779997 39.12537 39.28124997 75.19336 l 0.07617 -99.77734 0.002 0 0 -0.92774 0.03711 -49.453118 -0.08203 0 -0.06836 -74.53124969 z" FillRule="evenodd"/>
+                                </Path.Data>
+                            </Path>
+                        </Canvas>
+
+                        <Grid Width="40" Height="230">
+                            <Grid Margin="0,0,0,0">
+                                <StackPanel Orientation="Vertical" Margin="0,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <!--
+                                    <TextBlock Name="GameWindowPositionSetter" FontSize="20" HorizontalAlignment="Center" Text="&#xf17a;" Foreground="#222" Style="{StaticResource FontAwesomeWithover}"/>
+                                    -->
+                                    <Rectangle Width="20" Height="1" HorizontalAlignment="Center"
+                                        Margin="5,5,5,5">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                                <GradientStop Color="#0FFF" Offset="0" />
+                                                <GradientStop Color="#333" Offset="0.3" />
+                                                <GradientStop Color="#333" Offset="0.7" />
+                                                <GradientStop Color="#0FFF" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+
+                                    <TextBlock Name="StyleSettingButton" MouseLeftButtonDown="StyleSettingButton_MouseLeftButtonDown" FontSize="20" HorizontalAlignment="Center" Text="&#xf1fc;" Foreground="#222" Style="{StaticResource FontAwesomeWithover}"/>
+
+
+                                    <Rectangle Width="20" Height="1" HorizontalAlignment="Center"
+                                        Margin="5,5,5,5">
+                                        <Rectangle.Fill>
+                                            <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                                                <GradientStop Color="#0FFF" Offset="0" />
+                                                <GradientStop Color="#333" Offset="0.3" />
+                                                <GradientStop Color="#333" Offset="0.7" />
+                                                <GradientStop Color="#0FFF" Offset="1" />
+                                            </LinearGradientBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Viewbox>
+            </Grid>
+            
+        <!-- Kontrolka stołu do gry -->
+        <Viewbox Stretch="Uniform" StretchDirection="Both">
+            <Grid>
+                <Grid Name="GameTableGrid">
+                    <!-- table -->
+                    <game:Table Margin="0,0,0,140" x:Name="GameTable"/>
+                </Grid>
+            </Grid>
+        </Viewbox>
+
+        <!-- Akcja dla stołu -->
+        <Grid VerticalAlignment="Bottom" Height="145" Name="FooterPanel">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MaxWidth="335"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Viewbox Grid.Column="1" Stretch="Uniform" StretchDirection="Both" MaxWidth="450" Margin="0,0,35,0">
+                <Grid>
+                    <Frame NavigationUIVisibility="Hidden" x:Name="UserAction" Background="Transparent"/>
+                </Grid>
+            </Viewbox>
+
+            <Grid Grid.Column="0" Margin="2,0,0,2" MaxWidth="335">
+
+                <!-- przycisk zwiniecia/rozwiniecia -->
+
+                <TabControl HorizontalContentAlignment="Left" Opacity="0.75">
+                    <TabItem Header="Czat" FontSize="11" Padding="2" Margin="0,2,0,0">
+                        <Grid>
+                            <ScrollViewer Name="ChatScroll" Margin="0,0,0,30" Style="{DynamicResource AppleStyleScrollBarStyle}">
+                                <StackPanel Name="Chat">
+                                    <StackPanel.Resources>
+                                        <Style TargetType="{x:Type StackPanel}">
+                                            <Setter Property="TextBlock.Foreground" Value="White" />
+                                            <Setter Property="TextBlock.FontSize" Value="11" />
+                                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                                        </Style>
+                                    </StackPanel.Resources>
+                                </StackPanel>
+                            </ScrollViewer>
+                            <TextBox Name="ChatInput" Padding="2" Text="" FontSize="11" Margin="1,0,2,2" Style="{DynamicResource DarkTextBox}" VerticalAlignment="Bottom" KeyUp="OnChatMessageEnter">
+                            </TextBox>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+
+        </Grid>
+        </Grid>
+        
+        <!-- informacja o przerwanym połączeniu -->
+        <Grid Name="NoConnection">
+
+        </Grid>
+    </Grid>
+
+
+</Window>

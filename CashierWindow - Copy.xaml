@@ -1,0 +1,135 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        x:Class="CoinPoker.CashierWindow" Title="Cashier - UnityPoker"
+        WindowStyle="None"
+        ResizeMode="CanResize"
+        AllowsTransparency="True"
+        Background="Transparent"
+        WindowStartupLocation="CenterScreen"
+        Height="468" Width="700">
+    
+    <!-- Ustawienia okna glownego -->
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="45"
+                            GlassFrameThickness="-1"
+                            ResizeBorderThickness="5"/>
+    </shell:WindowChrome.WindowChrome>
+
+    <Grid>
+        <Border BorderBrush="#111" BorderThickness="1" CornerRadius="3" Margin="5">
+            <Border.Effect>
+                <DropShadowEffect Color="#000"
+                              BlurRadius="10"
+                              ShadowDepth="0"/>
+            </Border.Effect>
+            <Grid x:Name="LayoutRoot" Background="#ccc">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Grid.Row="0">
+                        <Border Background="#111">
+                            <Grid VerticalAlignment="Center">
+                                <TextBlock Margin="5,0,0,0" Foreground="#ccc" VerticalAlignment="Center" Style="{StaticResource Heading5}" Text="Kasjer">
+                                    <TextBlock.Effect>
+                                        <DropShadowEffect BlurRadius="10" Color="Black" ShadowDepth="0" />
+                                    </TextBlock.Effect>
+                                </TextBlock>
+
+                                <!-- panel opcji -->
+                                <StackPanel Margin="0,0,60,0" Orientation="Horizontal" HorizontalAlignment="Right" Height="26">
+                                    <Button Content="Szybka wpłata" Padding="5" Style="{StaticResource GreenButton}"/>
+                                    <Button Margin="2,0,0,0" Padding="5" Content="Wypłata"/>
+                                    <Button Margin="2,0,0,0" Padding="5" Content="Historia"/>
+                                </StackPanel>
+
+                                <!-- Action Panel Close/Minimize/Maximize -->
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
+                                    <Border BorderBrush="{x:Null}" Height="30" Margin="5,0,0,0">
+                                        <TextBlock Style="{StaticResource ActionWindowItem}" Text="&#xf021;" VerticalAlignment="Center" PreviewMouseDown="onCloseClick" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                    </Border>
+                                    <Border BorderBrush="{x:Null}" Height="30" Margin="5,0,0,0">
+                                        <TextBlock Style="{StaticResource ActionWindowItem}" Text="&#xf00d;" VerticalAlignment="Center" PreviewMouseDown="onCloseClick" shell:WindowChrome.IsHitTestVisibleInChrome="True"/>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <!-- -->
+                    <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- okno glowne -->
+                        <TabControl Grid.Column="0" Grid.Row="0" Margin="10">
+                            <TabItem Header="Historia">
+
+
+
+                                <!-- lista elementow -->
+                                <ListView Grid.Row="1" Margin="0,5,0,0" Name="TablesDataGrid" ItemContainerStyle="{DynamicResource ListViewItemContainerStyle}" Style="{DynamicResource MainLobbyListView}" AlternationCount="2">
+                                    <ListView.View>
+                                        <GridView ColumnHeaderContainerStyle="{DynamicResource MainLobbyColumnHeader}" ColumnHeaderTemplate="{DynamicResource MainLobbyHeaderTemplate}">
+                                            <GridViewColumn Width="Auto" CellTemplate="{StaticResource NormalGameNameTemplate}">
+                                                <GridViewColumn.Header>
+                                                    <GridViewColumnHeader Tag="Table.Name">Stół</GridViewColumnHeader>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.Stakes}">
+                                                <GridViewColumn.Header>
+                                                    <GridViewColumnHeader Tag="Table.Stakes">Stawki</GridViewColumnHeader>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.Seats}">
+                                                <GridViewColumn.Header>
+                                                    <GridViewColumnHeader Tag="Table.Seats">Liczba miejsc</GridViewColumnHeader>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.Limit}">
+                                                <GridViewColumn.Header>
+                                                    <GridViewColumnHeader Tag="Table.Limit">Limity</GridViewColumnHeader>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.Players}">
+                                                <GridViewColumn.Header>
+                                                    <GridViewColumnHeader Tag="Table.Players">Graczy</GridViewColumnHeader>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                            <GridViewColumn Width="Auto" DisplayMemberBinding="{Binding Table.AvgPot}">
+                                                <GridViewColumn.Header>
+                                                    <GridViewColumnHeader Tag="Table.AvgPot">Sr. póla</GridViewColumnHeader>
+                                                </GridViewColumn.Header>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+
+
+                                
+                            </TabItem>
+                        </TabControl>
+
+                       
+                    </Grid>
+                </Grid>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+    
+</Window>
